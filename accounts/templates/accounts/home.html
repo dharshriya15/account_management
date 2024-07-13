@@ -1,0 +1,40 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Home - Account Management System{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Account Management System</h1>
+    <p class="lead">Manage your accounts and destinations with ease.</p>
+    <hr class="my-4">
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2>Accounts</h2>
+            </div>
+            <div class="card-body">
+                <p>Manage your accounts here.</p>
+                <a href="{% url 'account-list' %}" class="btn btn-primary">View All Accounts</a>
+                <a href="{% url 'account-create' %}" class="btn btn-success">Create New Account</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2>Destinations</h2>
+            </div>
+            <div class="card-body">
+                <p>Manage your destinations here.</p>
+                <a href="{% url 'destination-list' %}" class="btn btn-primary">View All Destinations</a>
+                <a href="{% url 'destination-create' %}" class="btn btn-success">Create New Destination</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

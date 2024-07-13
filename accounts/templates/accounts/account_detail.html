@@ -1,0 +1,25 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}{{ account.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ account.name }}</h1>
+    <p><strong>Email:</strong> {{ account.email }}</p>
+    <p><strong>App Secret Token:</strong> {{ account.app_secret_token }}</p>
+
+    <h2>Destinations</h2>
+    <ul class="list-group">
+        {% for destination in account.destinations.all %}
+            <li class="list-group-item">
+                <a href="{% url 'destination-detail' destination.id %}">{{ destination.name }}</a>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No destinations found for this account.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="mt-3">
+        <a href="{% url 'account-update' account.id %}" class="btn btn-primary">Edit Account</a>
+        <a href="{% url 'account-delete' account.id %}" class="btn btn-danger">Delete Account</a>
+    </div>
+{% endblock %}

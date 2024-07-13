@@ -1,0 +1,21 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Accounts{% endblock %}
+
+{% block content %}
+    <h1>Accounts</h1>
+    <a href="{% url 'account-create' %}" class="btn btn-primary mb-3">Create New Account</a>
+    <ul class="list-group">
+        {% for account in accounts %}
+            <li class="list-group-item">
+                <a href="{% url 'account-detail' account.id %}">{{ account.name }}</a>
+                <span class="float-end">
+                    <a href="{% url 'account-update' account.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <a href="{% url 'account-delete' account.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </span>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No accounts found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

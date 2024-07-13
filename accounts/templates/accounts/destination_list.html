@@ -1,0 +1,21 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Destinations{% endblock %}
+
+{% block content %}
+    <h1>Destinations</h1>
+    <a href="{% url 'destination-create' %}" class="btn btn-primary mb-3">Create New Destination</a>
+    <ul class="list-group">
+        {% for destination in destinations %}
+            <li class="list-group-item">
+                <a href="{% url 'destination-detail' destination.id %}">{{ destination.name }}</a>
+                <span class="float-end">
+                    <a href="{% url 'destination-update' destination.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <a href="{% url 'destination-delete' destination.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </span>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No destinations found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<form id="dataForm" action="incoming_data" method="post">
+    <label for="secretToken">App Secret Token:</label>
+    <input type="text" name="secretToken" required>
+    <button type="submit">Send Data</button>
+</form>
+
+
+{% endblock %}
