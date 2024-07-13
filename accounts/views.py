@@ -78,7 +78,6 @@ class DestinationViewSet(viewsets.ModelViewSet):
 
 @api_view(['GET'])
 def get_account_destinations(request,account_id):
-    print(request.get,"request")
     try:
         account = Account.objects.get(id=account_id)
         destinations = account.destinations.all()
@@ -99,14 +98,14 @@ def incoming_data(request):
             return JsonResponse({"error": "Un Authenticate"}, status=401)
 
         try:
-            data = json.loads(account)
+            data = request.POST['data']
+            send_to_destinations(account, data)        
+            return JsonResponse({"message": "Data received and processed successfully"}, status=200)
+
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid Data"}, status=400)
 
         
-        send_to_destinations(account, data)
-
-        return JsonResponse({"message": "Data received and processed successfully"}, status=200)
     else:
         return render(request, 'accounts/form.html')
         
@@ -118,5 +117,8 @@ def validate_token_and_get_account(token):
         return json_data
 
 def send_to_destinations(account, data):
-    print(f"Sending data to destinations for account: {account}")
-    print(f"Data: {data}")
+    new_data = json.loads(data)
+    og_data = json.loads(account)
+    og_data[0]['fields']['name'] = new_data['name']
+    og_data[0]['fields']['url'] = new_data['url']
+    og_data[0]['pk'] = new_data['id']
